@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Label Apsáre palette — taken from the logo: sage ground, gold lotus, black serif. */
+/* Label Apsáre palette — harmonious with the royal gold & midnight monogram logo. */
 @theme {
   --color-sage-50: #f5f7ef;
   --color-sage-100: #e8ecdb;
@@ -11,13 +11,13 @@
   --color-sage-600: #63714a;
   --color-sage-700: #4b5638;
 
-  --color-gold-300: #e3c77e;
-  --color-gold-400: #d4b060;
-  --color-gold-500: #c4a052;
-  --color-gold-600: #a68338;
-  --color-gold-700: #7f6329;
+  --color-gold-300: #f3ca6d;
+  --color-gold-400: #e4b552;
+  --color-gold-500: #ce9b38;
+  --color-gold-600: #aa7a24;
+  --color-gold-700: #7d5714;
 
-  --color-ink: #1b1b18;
+  --color-ink: #121019;
   --color-ivory: #fbf9f3;
   --color-sale: #b4432f;
 

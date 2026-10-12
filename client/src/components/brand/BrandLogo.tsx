@@ -11,11 +11,11 @@ export interface BrandLogoProps {
 }
 
 const SIZE_CONFIG = {
-  sm: { width: 62, height: 44, container: "h-9 w-auto" },
-  md: { width: 78, height: 56, container: "h-11 sm:h-12 w-auto" },
-  lg: { width: 110, height: 79, container: "h-16 sm:h-20 w-auto" },
-  xl: { width: 160, height: 115, container: "h-24 sm:h-28 w-auto" },
-  custom: { width: 110, height: 79, container: "" },
+  sm: { width: 80, height: 36, container: "h-8 sm:h-9 w-auto" },
+  md: { width: 125, height: 56, container: "h-11 sm:h-12 w-auto" },
+  lg: { width: 180, height: 80, container: "h-14 sm:h-16 w-auto" },
+  xl: { width: 250, height: 112, container: "h-20 sm:h-24 w-auto" },
+  custom: { width: 125, height: 56, container: "" },
 } as const;
 
 export function BrandLogo({

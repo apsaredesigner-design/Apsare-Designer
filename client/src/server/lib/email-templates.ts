@@ -5,9 +5,10 @@ function formatCurrency(amount: any) {
   return `₹${n.toLocaleString("en-IN", { minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2 })}`;
 }
 
-const BRAND_COLOR = "#0f172a"; // slate-900 or similar
-const BG_COLOR = "#f8fafc";
-const TEXT_COLOR = "#334155";
+const BRAND_COLOR = "#121019";
+const GOLD_COLOR = "#ce9b38";
+const BG_COLOR = "#fbf9f3";
+const TEXT_COLOR = "#2d2a38";
 
 function layout(title: string, content: string) {
   return `
@@ -20,12 +21,13 @@ function layout(title: string, content: string) {
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: ${BG_COLOR}; color: ${TEXT_COLOR}; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
     .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px 20px; border-radius: 8px; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .header { text-align: center; margin-bottom: 32px; }
-    .header h1 { color: ${BRAND_COLOR}; margin: 0; font-size: 24px; font-weight: 600; }
+    .header { text-align: center; margin-bottom: 32px; border-bottom: 1px solid #f0ecdf; padding-bottom: 20px; }
+    .header h1 { color: ${BRAND_COLOR}; margin: 0; font-size: 26px; font-weight: 600; font-family: Georgia, serif; letter-spacing: 0.08em; }
+    .header p { color: ${GOLD_COLOR}; font-size: 11px; margin: 4px 0 0; text-transform: uppercase; letter-spacing: 0.2em; }
     .content { font-size: 16px; line-height: 1.6; color: ${TEXT_COLOR}; }
     .content p { margin-bottom: 16px; margin-top: 0; }
-    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 14px; color: #64748b; }
-    .button { display: inline-block; background-color: ${BRAND_COLOR}; color: #ffffff !important; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; margin: 16px 0; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0ecdf; text-align: center; font-size: 14px; color: #64748b; }
+    .button { display: inline-block; background-color: ${BRAND_COLOR}; color: #ffffff !important; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; margin: 16px 0; border: 1px solid ${GOLD_COLOR}; }
     .table { width: 100%; border-collapse: collapse; margin-top: 24px; margin-bottom: 24px; }
     .table th { text-align: left; padding: 12px; border-bottom: 2px solid #e2e8f0; color: ${BRAND_COLOR}; }
     .table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
@@ -36,6 +38,7 @@ function layout(title: string, content: string) {
   <div class="container">
     <div class="header">
       <h1>Label Apsáre</h1>
+      <p>Crafted for her modern aesthetic</p>
     </div>
     <div class="content">
       ${content}

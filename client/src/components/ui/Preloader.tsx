@@ -67,15 +67,15 @@ export function Preloader() {
             transition={{ duration: 0.7, ease: luxuryEase }}
             className="relative z-10 flex flex-col items-center text-center px-6"
           >
-            {/* High-Resolution Brand Lotus & Monogram */}
+            {/* High-Resolution Brand Logo */}
             <div className="relative mb-3 flex items-center justify-center">
               <Image
                 src={BRAND.logoDark}
                 alt={BRAND.name}
-                width={170}
-                height={122}
+                width={220}
+                height={98}
                 priority
-                className="h-24 sm:h-28 w-auto object-contain drop-shadow-md"
+                className="h-20 sm:h-24 w-auto object-contain drop-shadow-md"
               />
             </div>
 
