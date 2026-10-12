@@ -1,0 +1,18 @@
+{
+  "name": "label-apsare",
+  "private": true,
+  "workspaces": ["client"],
+  "scripts": {
+    "dev": "npm run dev -w client",
+    "build": "npm run build -w client",
+    "start": "npm run start -w client",
+    "lint": "npm run lint -w client",
+    "typecheck": "npm run typecheck -w client",
+    "test": "npm run test -w client",
+    "db:generate": "npm run db:generate -w client",
+    "db:migrate": "npm run db:migrate -w client",
+    "db:deploy": "npm run db:deploy -w client",
+    "db:status": "npm run db:status -w client",
+    "db:seed": "npm run db:seed -w client"
+  }
+}

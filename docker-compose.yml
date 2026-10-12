@@ -1,0 +1,16 @@
+# Local Postgres for development: docker compose up -d
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: apsare
+      POSTGRES_PASSWORD: apsare
+      POSTGRES_DB: apsare
+    ports:
+      - "127.0.0.1:5432:5432" # localhost only: dev credentials must not be reachable from the network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

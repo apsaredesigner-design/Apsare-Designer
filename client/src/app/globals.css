@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Label Apsáre palette — taken from the logo: sage ground, gold lotus, black serif. */
+@theme {
+  --color-sage-50: #f5f7ef;
+  --color-sage-100: #e8ecdb;
+  --color-sage-200: #d2dabb;
+  --color-sage-300: #b8c39c;
+  --color-sage-400: #9dab78;
+  --color-sage-500: #7f8f5e;
+  --color-sage-600: #63714a;
+  --color-sage-700: #4b5638;
+
+  --color-gold-300: #e3c77e;
+  --color-gold-400: #d4b060;
+  --color-gold-500: #c4a052;
+  --color-gold-600: #a68338;
+  --color-gold-700: #7f6329;
+
+  --color-ink: #1b1b18;
+  --color-ivory: #fbf9f3;
+  --color-sale: #b4432f;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-josefin), "Josefin Sans", system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
+/* Horizontal scroll carousels (category strip, product rails): scrollable by touch/trackpad/
+   keyboard either way, just without a visible scrollbar track cluttering the premium look. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hero footer ticker (HeroMarquee): a transform-only loop, slow and pausable so it reads as
+   editorial information rather than noise. Track is duplicated in the component so -50% is
+   exactly one full cycle. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
