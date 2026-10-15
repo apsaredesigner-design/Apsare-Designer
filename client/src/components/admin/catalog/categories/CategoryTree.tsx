@@ -8,6 +8,7 @@
 import { IconButton } from "@/components/admin/IconButton";
 import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon, ChevronRightIcon, PencilIcon, PlusIcon, TrashIcon } from "@/components/admin/icons";
 import { Badge } from "@/components/admin/StatusBadge";
+import { Switch } from "@/components/admin/Switch";
 import { cx } from "@/components/admin/styles";
 import { formatNumber } from "@/lib/admin/format";
 import type { CategoryTreeNode } from "@/lib/admin/types";
@@ -23,6 +24,10 @@ export interface TreeActions {
   onMove: (siblings: CategoryTreeNode[], index: number, delta: -1 | 1) => void;
   /** Disables the move buttons while a move is saving. */
   moving?: boolean;
+  /** Toggle category visibility / active state */
+  onToggleActive: (node: CategoryTreeNode, isActive: boolean) => void;
+  /** ID of category currently being toggled */
+  togglingId?: number | null;
 }
 
 interface NodeProps {
@@ -63,10 +68,12 @@ function Node({ node, depth, siblings, index, actions }: NodeProps) {
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <p className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className={cx("font-semibold break-words", node.isActive ? "text-ink" : "text-ink/55")}>{node.name}</span>
-              {!node.isActive && <Badge tone="neutral">Inactive</Badge>}
-            </p>
+              <Badge tone={node.isActive ? "success" : "neutral"} dot>
+                {node.isActive ? "Visible" : "Hidden"}
+              </Badge>
+            </div>
             <p className="truncate font-mono text-xs text-ink/50">
               /{node.slug} · #{node.sortOrder}
             </p>
@@ -74,7 +81,16 @@ function Node({ node, depth, siblings, index, actions }: NodeProps) {
           </div>
           <span className="hidden shrink-0 text-xs text-ink/60 tabular-nums sm:block">{products}</span>
         </div>
-        <div className="ml-auto flex shrink-0">
+        <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
+          <div className="mr-1.5 flex items-center" title={node.isActive ? "Visible on store" : "Hidden from store"}>
+            <Switch
+              size="sm"
+              checked={node.isActive}
+              disabled={actions.togglingId === node.id}
+              onChange={(next) => actions.onToggleActive(node, next)}
+              aria-label={`Toggle visibility for ${node.name}`}
+            />
+          </div>
           <IconButton
             label={`Move ${node.name} up`}
             disabled={index === 0 || actions.moving}

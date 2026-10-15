@@ -44,7 +44,12 @@ function LinkColumn({
   );
 }
 
-export function Footer() {
+export interface FooterProps {
+  navCategories?: { label: string; href: string }[];
+}
+
+export function Footer({ navCategories }: FooterProps = {}) {
+  const collectionLinks = navCategories && navCategories.length > 0 ? navCategories : SHOP_LINKS;
   return (
     <footer className="mt-auto bg-sage-700 text-ivory border-t border-sage-600/60">
       {/* Brand value badge strip */}
@@ -93,7 +98,7 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:gap-12 pt-2">
-            <LinkColumn title="Collections" links={SHOP_LINKS} />
+            <LinkColumn title="Collections" links={collectionLinks} />
             <LinkColumn title="Client Care" links={HELP_LINKS} />
           </div>
         </div>

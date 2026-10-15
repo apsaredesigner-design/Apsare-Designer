@@ -132,11 +132,29 @@ function originOf(value: string): string | null {
  * fixing CLIENT_URL drifting out of sync with whatever domain a given deployment landed on.
  */
 const allowedOrigins = new Set(
-  [env.clientUrl, process.env["VERCEL_URL"] && `https://${process.env["VERCEL_URL"]}`, process.env["VERCEL_PROJECT_PRODUCTION_URL"] && `https://${process.env["VERCEL_PROJECT_PRODUCTION_URL"]}`]
+  [
+    env.clientUrl,
+    process.env["VERCEL_URL"] && `https://${process.env["VERCEL_URL"]}`,
+    process.env["VERCEL_PROJECT_PRODUCTION_URL"] && `https://${process.env["VERCEL_PROJECT_PRODUCTION_URL"]}`,
+  ]
     .filter((v): v is string => Boolean(v))
     .map(originOf)
     .filter((v): v is string => v !== null),
 );
+
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return false;
+  if (allowedOrigins.has(origin)) return true;
+  if (!env.isProd) {
+    try {
+      const url = new URL(origin);
+      if (url.hostname === "localhost" || url.hostname === "127.0.0.1") return true;
+    } catch {
+      return false;
+    }
+  }
+  return false;
+}
 
 const mediaType = (req: Request) => req.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
 
@@ -153,7 +171,7 @@ export function checkSameOrigin(req: Request, pathname: string): void {
   // An Origin/Referer that's present but unparseable (e.g. the literal `Origin: null` browsers
   // send for a sandboxed/opaque origin) must still be blocked -- only a genuinely absent
   // header (source === null) skips the check.
-  if (source !== null && !allowedOrigins.has(originOf(source) ?? "")) {
+  if (source !== null && !isAllowedOrigin(originOf(source))) {
     throw new HttpError(403, "Cross-site request blocked", "CSRF");
   }
 

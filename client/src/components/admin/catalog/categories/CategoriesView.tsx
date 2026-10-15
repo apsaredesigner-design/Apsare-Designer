@@ -18,6 +18,7 @@ import { errorMessage } from "@/lib/admin/errors";
 import { moveSibling } from "@/lib/admin/helpers/categories";
 import type { CategoryTreeNode } from "@/lib/admin/types";
 import { useMutation } from "@/lib/admin/use-mutation";
+import { useToast } from "@/components/admin/Toast";
 import { LoadError } from "../../shared/LoadError";
 import { useCategoryTree } from "../../shared/useCategoryTree";
 import { CategoryFormModal, type CategoryTarget } from "./CategoryFormModal";
@@ -53,6 +54,29 @@ export function CategoriesView() {
         setAnnounce(`${node.name} moved to position ${index + delta + 1} of ${siblings.length}.`),
       // A partial failure can leave a mix of old and new positions: always show the server's state.
       onSettled: reload,
+    },
+  );
+
+  const toast = useToast();
+  const [togglingId, setTogglingId] = useState<number | null>(null);
+
+  const toggleActive = useMutation(
+    async ({ node, isActive }: { node: CategoryTreeNode; isActive: boolean }) => {
+      setTogglingId(node.id);
+      await adminApi.categories.setStatus(node.id, isActive);
+      return { node, isActive };
+    },
+    {
+      onSuccess: ({ node, isActive }) => {
+        toast.success(`“${node.name}” is now ${isActive ? "visible" : "hidden"} on the store.`);
+      },
+      onError: (err) => {
+        toast.error(errorMessage(err));
+      },
+      onSettled: () => {
+        setTogglingId(null);
+        void reload();
+      },
     },
   );
 
@@ -99,6 +123,8 @@ export function CategoriesView() {
           },
           onMove: (siblings, index, delta) => void move.mutate(siblings, index, delta),
           moving: move.pending || loading,
+          onToggleActive: (node, isActive) => void toggleActive.mutate({ node, isActive }),
+          togglingId,
         }}
       />
     );

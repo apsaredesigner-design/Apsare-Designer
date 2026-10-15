@@ -119,6 +119,8 @@ export const adminApi = {
     create: (body: AdminCategoryInput, init?: Init) => send<AdminCategory>("POST", "/admin/categories", body, init),
     update: (id: number, body: Partial<AdminCategoryInput>, init?: Init) =>
       send<AdminCategory>("PATCH", `/admin/categories/${id}`, body, init),
+    setStatus: (id: number, isActive: boolean, init?: Init) =>
+      send<AdminCategory>("PATCH", `/admin/categories/${id}`, { isActive }, init),
     /** The whole tree, inactive included (not paginated). */
     tree: (init?: Init) => get<CategoryTreeNode[]>("/admin/categories/tree", init),
   },

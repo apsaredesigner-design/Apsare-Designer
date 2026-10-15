@@ -41,6 +41,9 @@ const CATEGORIES = [
   { slug: "lehengas", name: "Lehengas", imageUrl: "/images/categories/lehengas.jpg", description: "Bridal and festive lehenga sets." },
   { slug: "kurta-sets", name: "Kurtas & Sets", imageUrl: "/images/categories/kurtas.jpg", description: "Everyday and festive kurtas, kurta sets and anarkalis." },
   { slug: "dupattas", name: "Dupattas", imageUrl: "/images/categories/dupattas.jpg", description: "Phulkari, Banarasi and chiffon dupattas." },
+  { slug: "all-in-one", name: "All-in-One", imageUrl: "/images/categories/sarees.jpg", description: "All-in-One collection." },
+  { slug: "new-arrivals", name: "New Arrivals", imageUrl: "/images/categories/sarees.jpg", description: "Explore the latest festive edits and new arrivals." },
+  { slug: "offers", name: "Offers", imageUrl: "/images/categories/sarees.jpg", description: "Special seasonal discounts and promotional offers." },
 ];
 
 // ─── Products ─────────────────────────────────────────────────

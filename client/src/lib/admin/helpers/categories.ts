@@ -79,12 +79,21 @@ export function slugify(text: string): string {
     .replace(/-+$/g, "");
 }
 
-/** Select options with the depth shown as an indent ("— Silk"). */
+/** Select options with the depth shown as an indent ("— Silk"). Prioritizes "All-in-One" at the top. */
 export function categoryOptions(flat: FlatCategory[], exclude?: Set<number>) {
-  return flat
+  const options = flat
     .filter(({ node }) => !exclude?.has(node.id))
     .map(({ node, depth }) => ({
       value: node.id,
       label: `${"— ".repeat(depth)}${node.name}${node.isActive ? "" : " (inactive)"}`,
+      isAllInOne: node.slug === "all-in-one" || node.name.toLowerCase() === "all-in-one",
     }));
+
+  options.sort((a, b) => {
+    if (a.isAllInOne && !b.isAllInOne) return -1;
+    if (!a.isAllInOne && b.isAllInOne) return 1;
+    return 0;
+  });
+
+  return options.map(({ value, label }) => ({ value, label }));
 }

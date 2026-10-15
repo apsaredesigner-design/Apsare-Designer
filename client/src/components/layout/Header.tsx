@@ -22,7 +22,12 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-export function Header() {
+export interface HeaderProps {
+  navCategories?: { label: string; href: string }[];
+}
+
+export function Header({ navCategories }: HeaderProps = {}) {
+  const links = navCategories && navCategories.length > 0 ? navCategories : NAV_LINKS;
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuth();
@@ -287,7 +292,7 @@ export function Header() {
 
         {/* Desktop Category Navigation */}
         <nav className="mx-auto hidden md:flex max-w-7xl justify-center gap-8 px-4 pb-3 pt-1 text-xs uppercase tracking-[0.18em] font-medium whitespace-nowrap">
-          {NAV_LINKS.map((link) => {
+          {links.map((link) => {
             const isActive =
               pathname === link.href ||
               (link.href !== "/" && pathname.startsWith(link.href));
@@ -345,7 +350,7 @@ export function Header() {
               </div>
 
               <nav className="mt-6 flex flex-col gap-4 text-xs uppercase tracking-[0.2em] font-medium">
-                {NAV_LINKS.map((link) => {
+                {links.map((link) => {
                   const isActive =
                     pathname === link.href ||
                     (link.href !== "/" && pathname.startsWith(link.href));

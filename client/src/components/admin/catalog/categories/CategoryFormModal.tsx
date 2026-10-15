@@ -197,7 +197,12 @@ export function CategoryFormModal({
         <FormField label="Image URL" name="imageUrl" errors={errors} hint="Filled in by the upload, or paste a link">
           <Input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://… or /images/categories/…" inputMode="url" />
         </FormField>
-        <Switch label="Active" description="Inactive categories are hidden from the store." checked={isActive} onChange={setActive} />
+        <Switch
+          label={isActive ? "Visible on store" : "Hidden from store"}
+          description="When hidden, this category and its products are not shown on the public website."
+          checked={isActive}
+          onChange={setActive}
+        />
       </form>
     </Modal>
   );

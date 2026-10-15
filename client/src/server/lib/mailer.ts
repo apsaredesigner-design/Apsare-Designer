@@ -72,7 +72,10 @@ function createMailer(): Mailer {
   const { provider, resendApiKey } = env.mail;
   if (provider === "console") return consoleMailer;
   if (provider === "resend") {
-    if (!resendApiKey) throw new Error("MAIL_PROVIDER=resend needs RESEND_API_KEY (and MAIL_FROM on a verified domain)");
+    if (!resendApiKey) {
+      console.warn("⚠️  RESEND_API_KEY is not set; falling back to console mailer.");
+      return consoleMailer;
+    }
     return resendMailer(resendApiKey);
   }
   if (provider === "smtp" || provider === "gmail") {

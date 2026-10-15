@@ -17,7 +17,7 @@
 import { cache } from "react";
 import { parse as parseQueryString } from "node:querystring";
 import type { z } from "zod";
-import type { CategoryDetail, HomeResponse, Paginated, Product, ProductListResponse, ProductSummary, Review } from "@/types";
+import type { CategoryDetail, CategoryNode, HomeResponse, Paginated, Product, ProductListResponse, ProductSummary, Review } from "@/types";
 import { decimalReplacer, runSchemas } from "./http/route";
 import * as categories from "./modules/categories/categories.service";
 import * as products from "./modules/products/products.service";
@@ -37,6 +37,9 @@ function validQuery<S extends z.ZodType>(schema: S, search: string | URLSearchPa
   const raw = { ...parseQueryString(search.toString()) };
   return runSchemas({ query: schema }, { body: undefined, query: raw, params: undefined }).query as z.output<S>;
 }
+
+/** GET /api/categories (the active category tree). */
+export const getCategoryTree = cache(async (): Promise<CategoryNode[]> => asJson(await categories.getCategoryTree()));
 
 /** GET /api/products/home */
 export const getHome = cache(async (): Promise<HomeResponse> => asJson(await products.getHome()));
